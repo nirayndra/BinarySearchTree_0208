@@ -20,4 +20,7 @@ public:
 
 class binarytree
 {
+public:
+    node *ROOT;
+
 }

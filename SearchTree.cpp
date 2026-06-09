@@ -2,15 +2,15 @@
 #include <string>
 using namespace std;
 
-class node
+class Node
 {
 public:
     string info;
-    node *leftchild;
-    node *rightchild;
+    Node *leftchild;
+    Node *rightchild;
 
     //constructor for node class
-    node(string i, node *l, node *r)
+    Node(string i, Node *l, Node *r)
     {
         info = i;
         leftchild = l;
@@ -18,10 +18,10 @@ public:
     }
 }
 
-class binarytree
+class BinaryTree
 {
 public:
-    node *ROOT;
+    Node *ROOT;
 
     BinaryTree()
     {
@@ -31,30 +31,48 @@ public:
     //Insert a node in the binary search tree
     void insert(string element)
     {
-        node *newnode = new node(element, NULL, NULL);
+        Node *newNode = new Node(element, NULL, NULL);
 
-        newnode->info = element;
-        newnode->leftchild = NULL;
-        newnode->rightchild = NULL;
+        newNode->info = element;
+        newNode->leftchild = NULL;
+        newNode->rightchild = NULL;
 
-        node *parent = NULL;
-        node *currentnode = NULL;
+        Node *parent = NULL;
+        Node *currentnode = NULL;
 
         search(element, parent, currentnode);
 
         if (parent == NULL)
         {
-            ROOT = newnode;
+            ROOT = newNode;
             return;
         }
         
         if (element < parent->info)
         {
-            parent->leftchild = newnode;
+            parent->leftchild = newNode;
         }
         else if (element > parent->info)
         {
-            parent->rightchild = newnode;
+            parent->rightchild = newNode;
+        }
+    }
+    
+    // this function searches the current node of the specified node
+    // as well as the current node of its parent
+    void search(string element, Node *&parent, Node *&currentnode)
+    {
+        currentnode = ROOT;
+        parent = NULL;
+
+        while (currentnode != NULL && currentnode->info != element)
+        {
+            parent = currentnode;
+
+            if (element < currentnode->info)
+                currentnode = currentnode->leftchild;
+            else
+                currentnode = currentnode->rightchild;
         }
     }
 
